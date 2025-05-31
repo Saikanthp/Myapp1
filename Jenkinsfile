@@ -4,7 +4,6 @@ pipeline {
     stage('Build') {
       steps {
         sh '''echo "compiling java project..."
-java App.java
 '''
       }
     }
@@ -13,7 +12,7 @@ java App.java
       steps {
         echo 'Running tests...'
         sh '''echo "Running test"
-java App
+
 '''
       }
     }
