@@ -1,25 +1,26 @@
 pipeline {
-    agent any
+    agent {
+        label 'docker-enabled-agent'
+    }
 
     stages {
         stage('Docker Version') {
             steps {
-                echo 'Checking Docker version...'
                 sh 'docker --version'
             }
         }
-
         stage('Pull Node Image') {
             steps {
-                echo 'Pulling node:20 image...'
-                sh 'docker pull node:20'
+                sh 'docker pull node:14'
             }
         }
-
         stage('Run Node Container') {
             steps {
-                echo 'Running node container and checking version...'
-                sh 'docker run --rm node:20 node --version'
+                sh 'docker run --rm node:14 node --version'
+            }
+        }
+    }
+}
             }
         }
     }
