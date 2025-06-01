@@ -1,22 +1,25 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:20'  // Use Maven image with JDK 11
-            label 'docker'              // Optional: node label to run this on
-            args '-v /root/.m2:/root/.m2' // Mount volume to cache Maven dependencies
-        }
-    }
+    agent any
+
     stages {
-        stage('Build') {
+        stage('Docker Version') {
             steps {
-                echo 'Building inside Docker container...'
-                sh 'mvn -version'         // Run Maven command inside container
+                echo 'Checking Docker version...'
+                bat 'docker --version'
             }
         }
-        stage('Test') {
+
+        stage('Pull Node Image') {
             steps {
-                echo 'Testing inside Docker container...'
-                sh 'echo Running tests...'
+                echo 'Pulling node:20 image...'
+                bat 'docker pull node:20'
+            }
+        }
+
+        stage('Run Node Container') {
+            steps {
+                echo 'Running node container and checking version...'
+                bat 'docker run --rm node:20 node --version'
             }
         }
     }
