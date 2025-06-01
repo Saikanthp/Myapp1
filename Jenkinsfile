@@ -1,14 +1,23 @@
 pipeline {
-  agent any
-  parameters {
-    choice(name: 'ENV', choices: ['dev', 'qa', 'prod'], description: 'Environment to deploy')
-  }
-  stages {
-    stage('Show Parameter') {
-      steps {
-        echo "Selected Environment: ${params.ENV}"
-      }
+    agent {
+        docker {
+            image 'maven:3.8.4-jdk-11'  // Use Maven image with JDK 11
+            label 'docker'              // Optional: node label to run this on
+            args '-v /root/.m2:/root/.m2' // Mount volume to cache Maven dependencies
+        }
     }
-    // other stages like build, test, deploy...
-  }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building inside Docker container...'
+                sh 'mvn -version'         // Run Maven command inside container
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing inside Docker container...'
+                sh 'echo Running tests...'
+            }
+        }
+    }
 }
