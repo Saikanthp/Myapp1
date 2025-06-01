@@ -9,45 +9,39 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                echo "📥 Cloning repository..."
+                echo " Cloning repository..."
                 checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                echo "🔧 Building ${env.APP_NAME} for ${env.ENV}..."
-                // Example: For Java + Maven project
-                // sh 'mvn clean package'
-                sh 'echo "Build done"'
+                echo " Building ${env.APP_NAME} for ${env.ENV}..."
+                bat 'echo Build done'
             }
         }
 
         stage('Test') {
             steps {
-                echo "🧪 Running unit tests..."
-                // Example: Java project
-                // sh 'mvn test'
-                sh 'echo "Tests passed"'
+                echo " Running unit tests..."
+                bat 'echo Tests passed'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo "🚀 Deploying ${env.APP_NAME} to ${env.ENV}..."
-                // Example: deploy using SCP or kubectl
-                sh 'echo "Deploy complete"'
+                echo " Deploying ${env.APP_NAME} to ${env.ENV}..."
+                bat 'echo Deployed!'
             }
         }
     }
 
     post {
         success {
-            echo "✅ Pipeline finished successfully"
+            echo " Pipeline finished successfully"
         }
         failure {
-            echo "❌ Pipeline failed"
+            echo " Pipeline failed"
         }
     }
-}
 }
