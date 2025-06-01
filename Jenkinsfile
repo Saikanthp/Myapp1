@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'maven:3.8.4-jdk-11'  // Use Maven image with JDK 11
+            image 'node:20'  // Use Maven image with JDK 11
             label 'docker'              // Optional: node label to run this on
             args '-v /root/.m2:/root/.m2' // Mount volume to cache Maven dependencies
         }
