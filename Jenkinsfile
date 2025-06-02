@@ -13,7 +13,7 @@ pipeline {
                 echo "🏗️ Building the application..."
             }
         }
-
+        
         stage('Test') {
             steps {
                 echo "✅ Running tests... All tests passed!"
