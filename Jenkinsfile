@@ -1,22 +1,12 @@
 pipeline {
-    agent {
-        label 'docker-enabled-agent'
+    agent any
+    environment {
+        GITHUB_TOKEN = credentials('GITHUB_TOKEN') // matches the ID you gave
     }
-
     stages {
-        stage('Docker Version') {
+        stage('Show Token Length') {
             steps {
-                sh 'docker --version'
-            }
-        }
-        stage('Pull Node Image') {
-            steps {
-                sh 'docker pull node:14'
-            }
-        }
-        stage('Run Node Container') {
-            steps {
-                sh 'docker run --rm node:14 node --version'
+                echo "GitHub Token Length: ${GITHUB_TOKEN.length()}"
             }
         }
     }
