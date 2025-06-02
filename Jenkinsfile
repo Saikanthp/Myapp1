@@ -1,26 +1,38 @@
 pipeline {
     agent any
 
-    environment {
-        MY_ENV_VAR = "This is a custom env variable"
-    }
-
     stages {
-        stage('Show Env Variables') {
+        stage('Preparation') {
             steps {
-                echo "🏷️ Job Name: ${env.JOB_NAME}"
-                echo "📁 Workspace: ${env.WORKSPACE}"
-                echo "🔢 Build Number: ${env.BUILD_NUMBER}"
-                echo "🧪 Custom Var: ${env.MY_ENV_VAR}"
+                echo "📦 Preparing build..."
             }
         }
 
-        stage('Use GitHub Token') {
+        stage('Build') {
             steps {
-                withCredentials([string(credentialsId: 'GITHUB-TOKEN', variable: 'GITHUB-TOKEN')]) {
-                    echo "🔒 GitHub Token Length: ${GITHUB-TOKEN.length()}"
-                }
+                echo "🏗️ Building the application..."
             }
+        }
+
+        stage('Test') {
+            steps {
+                echo "✅ Running tests... All tests passed!"
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "🚀 Deployment complete!"
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "🎉 Build completed successfully!"
+        }
+        failure {
+            echo "❌ Build failed!"
         }
     }
 }
